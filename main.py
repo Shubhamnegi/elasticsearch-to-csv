@@ -1,13 +1,14 @@
 from elasticsearch import Elasticsearch
+import certifi
 import os
 import re
 from services.lt_end_time_log import LtEndTimeLog
-from services.pg_poller_delay import PgPollerDelay
+from services.search_elapsed_time import SearchElapsedTime
 
 
 def query_elastic(host, index, query, start_time, end_time, skip=0, limit=150, sort="asc"):
     print(f"connecting host: {host}")
-    es = Elasticsearch(host)
+    es = Elasticsearch(host, use_ssl=True, ca_certs=certifi.where())
     query = {
         "from": skip,
         "size": limit,
@@ -61,19 +62,19 @@ def delete_csv():
 
 
 if __name__ == "__main__":
-    index = "graylog_648"
+    index = "graylog_681"
     host = ["https://elastic.limetray.com"]
     # delete_csv()
 
-    csvRegexHelper = PgPollerDelay()
+    csvRegexHelper = SearchElapsedTime()
 
     f = open(get_result_csv_path(), "a+")
     f.write(csvRegexHelper.get_header())
     try:
         skip = 2700
         limit = 150
-        start_time = "2019-10-09 13:00:19.881"
-        end_time = "2019-10-09 13:28:19.881"
+        start_time = "2019-11-11 18:00:19.881"
+        end_time = "2019-11-11 19:28:19.881"
         print(f"Parsing log for {start_time}-{end_time}")
         while(True):
             print(
