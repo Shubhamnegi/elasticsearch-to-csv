@@ -1,0 +1,35 @@
+{
+  "from": 0,
+  "size": 150,
+  "query": {
+    "bool": {
+      "must": {
+        "query_string": {
+          "query": "\"Request Ended for url\" AND source:\"/home/logistic/lt_backbone/storage/logs/laravel.log\"",
+          "allow_leading_wildcard": true
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": {
+            "range": {
+              "timestamp": {
+                "from": "2019-10-05 09:18:00.000",
+                "to": "2019-10-05 09:22:00.000",
+                "include_lower": true,
+                "include_upper": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "timestamp": {
+        "order": "desc"
+      }
+    }
+  ]
+}
