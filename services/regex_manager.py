@@ -16,5 +16,5 @@ class RegexManager(ABC):
         return self.search_string
 
     @abstractmethod
-    def formatted_csv_line(self, data):
+    def formatted_csv_line(self, data, body=None):
         pass
