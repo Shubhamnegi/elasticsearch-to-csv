@@ -61,8 +61,8 @@ def delete_csv():
 
 
 if __name__ == "__main__":
-    index = "graylog_648"
-    host = ["https://elastic.limetray.com"]
+    index = ""
+    host = [""]
     # delete_csv()
 
     csvRegexHelper = PgPollerDelay()
